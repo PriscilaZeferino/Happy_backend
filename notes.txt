@@ -1,0 +1,145 @@
+Essa pasta vai guardar todas informações do nosso backend.
+
+O primeiro passo é dar um yarn init para ele criar o nosso package.json 
+pois é nesse package que as dependências, scripts, e algumas outras informações
+serão armazenadas. 
+
+Após isso, devemos instalar o express...
+
+yarn add express
+
+Agora, criaremos a pasta src e dentro delas
+organizaremos os principais arquivos da nossa aplicação.
+
+
+Server.ts
+
+Criamos o arquivo server.ts e já importamos o express
+
+Express é uma biblioteca que permite trabalharmos 
+com as requisições e respostas de uma maneira mais simples.
+
+importamos tbm a biblioteca de tipagens
+
+yarn add @typescript
+
+Criamos um arquivo de configuraçao do typescript
+
+yarn tsc --init
+
+Entrar no arquivo e alterar o target para es2017. isso
+vai escolher a versão do EcmaScript de 2017.
+
+Agora, na raiz do projeto:
+
+yarn add ts-node-dev -D 
+
+Isto é um pacote para deixar a gente executar
+o nosso programa usando typescript e nodejs.
+
+Então, agora, ir no package.json criar
+um scripts....
+
+dev: ts-node-dev 
+
+informar para o express q estamos usando json
+
+
+Banco de dados
+
+Para o node ler nosso banco de dados, usaremos a biblioteca typeorn.
+O banco neste caso, será sqlite3;
+
+yarn add typeorm sqlite3
+
+Existem tres formas de lidar com o banco em nossa aplicação
+Como Driver nativo, como Query Builder, ou ORM. Neste caso, ´
+eh a ultima opção.
+
+Driver nativo
+Usariamos como eh no banco de nativo,nao permite muita abstração
+
+Query build 
+Escremos as nossas querys com javascript e convertido depois
+
+ORM
+É o nivel de abstração maior possivel.
+Nos vamos ter uma classe na nossa aplicação pra cada tabela no banco de dados
+e toda vez que busco, a resposta sera uma instancia da classe.
+
+users
+user
+
+3 users
+user user user
+
+//Criando banco, arquivo de conexao, e migrations
+
+
+Migrations
+
+Criar tabela de orfanatos
+
+$ yarn typeorm migration:create -n create_orphanages
+
+ Criar tabela de imagens
+
+$ yarn typeorm migration:create -n create_images
+
+Para criar de fato a tabela no banco de dados
+yarn typeorm migration:run
+
+Usar um editor visual para ver as tabelas criadas
+como o beekeper studio.
+
+yarn typeorm migration:revert (desfaz a alteracao)
+
+Necessario algumas alteracoes no tsconfig
+
+Ativar decorator
+
+importar Entity para associar com a tabela do banco
+Columns referencia a coluna da tabela no banco
+
+importamos o getRepository pois é ele que 
+guarda todas as regras das execuções que 
+nós podemos fazer no banco de dados.
+
+importamos nosso modulo
+
+Criamos a rota Criar create_orphanages
+
+
+
+Reorganizamos a estrutura de pastas
+no padrão MVC
+
+Model - representacao da entidade
+View - como eh visualizado
+Controller - logica de negocio
+
+Listamos os usuarios
+
+
+        //Relacionamento de entidades
+
+        1-N 1 orfanatos - muitas imagens
+
+
+        Instalação de uma biblioteca para lidar com imagens
+        yarn add multer
+
+
+JSON nao suporta imagens
+substituir por multipart form
+
+
+Para capturar  os erros quando usamos async nas rotas
+ instalamos o 
+ 
+ yard add express-async-errors
+
+ criamos a handles dos erros pra apresentar os erros de maneira mais legivel
+
+ instalamos o yup e criamos um schema de validação de campos.
+ 
